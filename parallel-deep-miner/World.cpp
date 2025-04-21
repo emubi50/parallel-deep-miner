@@ -165,6 +165,28 @@ void World::generateWorld()
 	}
 }
 
+void World::newWorldOrder()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			switch (rand() % 3)
+			{
+			case 0:
+				std::random_shuffle(world[i][j].begin(), world[i][j].end()); // Shuffle the column
+				break;
+			case 1:
+				std::sort(world[i][j].begin(), world[i][j].end()); // Sort in ascending order
+				break;
+			case 2:
+				std::sort(world[i][j].begin(), world[i][j].end(), std::greater<int>()); // Sort in descending order
+				break;
+			}
+		}
+	}
+}
+
 void World::startRound(int firstBot, int totalScore)
 {
 	//display the world
@@ -199,6 +221,14 @@ void World::startRound(int firstBot, int totalScore)
 		{
 			std::cout << "Bot position out of bounds! Skipping mining.\n";
 		}
+	}
+	if (totalScore % 50 != totalScore)
+	{
+		std::cout << "========================\n";
+		std::cout << "50 Points reached! Creating NEW WORLD ORDER...\n";
+		std::cout << "========================\n";
+		newWorldOrder(); // Shuffle the world
+		totalScore %= 50; // Reset the score
 	}
 	startRound(firstBot, totalScore);
 }

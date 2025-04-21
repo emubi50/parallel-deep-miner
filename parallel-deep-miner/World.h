@@ -20,6 +20,7 @@ public:
 	void startRound(int firstBot, int totalScore);
 private:
 	void generateWorld();
+	void newWorldOrder();
 	vector<vector<vector<int>>> world; //5 x 5 x 10 world
 	vector<BaseBot*> bots; // List of bots in the world (limited to 2 bots for now)
 	int roundCounter;
