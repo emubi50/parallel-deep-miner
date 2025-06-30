@@ -100,7 +100,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -128,14 +128,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseBot.cpp" />
-    <ClCompile Include="parallel-deep-miner.cpp" />
+    <ClCompile Include="Position.cpp" />
     <ClCompile Include="RandomBot.cpp" />
     <ClCompile Include="SortBot.cpp" />
+    <ClCompile Include="tests.cpp" />
     <ClCompile Include="TripleBot.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseBot.h" />
+    <ClInclude Include="Position.h" />
     <ClInclude Include="RandomBot.h" />
     <ClInclude Include="SortBot.h" />
     <ClInclude Include="TripleBot.h" />

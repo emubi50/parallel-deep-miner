@@ -6,11 +6,11 @@ class TripleBot :
 public:
 	TripleBot(bool isCpu);
 	~TripleBot();
-	void move(int x, int y); // Move the bot to a new position
+	void move(char c); // Move the bot to a new position
 	int mine(vector<int>* column) override; // Mine at the current position
 	bool isCpu;
 private:
-	int x, y;
+	Position pos;
 	int score;
 };
 

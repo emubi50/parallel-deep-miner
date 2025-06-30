@@ -8,9 +8,20 @@ TripleBot::~TripleBot()
 {
 }
 
-void TripleBot::move(int x, int y)
+void TripleBot::move(char c)
 {
-	BaseBot::move(x, y);
+	try
+	{
+		BaseBot::move(c);
+	}
+	catch (const std::out_of_range& except)
+	{
+		throw;
+	}
+	catch (const std::invalid_argument& except)
+	{
+		throw;
+	}
 }
 
 int TripleBot::mine(vector<int>* column)
@@ -18,11 +29,8 @@ int TripleBot::mine(vector<int>* column)
 	int score = 0;
 	for (int i = 0; i < 3; i++)
 	{
+		if (column->empty()) throw std::logic_error("Column is actually empty! Column Size cannot be less than 0.");
 		score += column->at(0);
-		if (column->empty())
-		{
-			break;
-		}
 		if (column->size() == 1)
 		{
 			column->back() = 0; // Set the value to 0

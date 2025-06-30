@@ -8,9 +8,20 @@ World::World()
 	int gameMode = 0;
 	while (gameMode != 1 && gameMode != 2)
 	{
-		std::cout << "Select game mode (player vs cpu - 1 / cpu vs cpu - 2): ";
-		std::cin >> gameMode;
-		std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+		try
+		{
+			std::cout << "Select game mode (player vs cpu - 1 / cpu vs cpu - 2): ";
+			std::cin >> gameMode;
+			std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+			if (gameMode != 1 && gameMode != 2) throw std::invalid_argument("Invalid input! Please enter 1 or 2.");
+		}
+		catch (const std::invalid_argument& except)
+		{
+			std::cerr << except.what() << '\n';
+			std::cin.clear();
+			std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+			continue;
+		}
 	}
 	addBot(--gameMode);
 }
@@ -117,35 +128,33 @@ void World::addBot(bool isCpu)
 }
 void World::moveBot(BaseBot* currentBot)
 {
-	int x = currentBot->getPos().x;
-	int y = currentBot->getPos().y;
+	Position currentPos = currentBot->getPos();
+	char c = 'x';
 	// Move the bot in the world, but Bot updates its own position
 	if (currentBot->isCpu == false)
 	{
-		std::cout << "Enter new position: \n";
-		std::cout << "Enter x (0-4): ";
-		while (!(std::cin >> x) || x < 0 || x > 4)
-		{
-			std::cout << "Invalid input! Enter x (0-4): ";
-			std::cin.clear();
-			std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-		}
-		std::cout << "Enter y (0-4): ";
-		while (!(std::cin >> y) || y < 0 || y > 4)
-		{
-			std::cout << "Invalid input! Enter y (0-4): ";
-			std::cin.clear();
-			std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-		}
+		std::cout << "Enter move (WASD): ";
+		std::cin >> c;
+		std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+		c = tolower(c);
 	}
 	else
 	{
 		std::cout << currentBot->getName() << " is moving...\n";
-		x = rand() % 5;
-		y = rand() % 5;
+		c = "wasd"[rand() % 4];
 	}
-	currentBot->move(x, y); // Move the bot to the new position
-	std::cout << currentBot->getName() << " moved to (" << x << ", " << y << ")\n";
+	try
+	{
+		currentBot->move(c);
+	}
+	catch (const std::out_of_range& except)
+	{
+		std::cerr << except.what() << '\n';
+	}
+	catch (const std::invalid_argument& except)
+	{
+		std::cerr << except.what() << '\n';
+	}
 }
 void World::generateWorld()
 {
@@ -208,12 +217,11 @@ void World::startRound(int firstBot, int totalScore)
 	for (auto& bot : bots)
 	{
 		moveBot(bot);
-		// Check if the bot's position is within bounds before mining  
-		int x = bot->getPos().x;
-		int y = bot->getPos().y;
-		if (x >= 0 && x < world.size() && y >= 0 && y < world[x].size())
+		// Check if the bot's position is within bounds before mining
+		Position pos = bot->getPos();
+		if (pos.x >= 0 && pos.x < world.size() && pos.y >= 0 && pos.y < world[pos.x].size())
 		{
-			int scoreIncrement = bot->mine(&world[x][y]); // Mine at the current position
+			int scoreIncrement = bot->mine(&world[pos.x][pos.y]); // Mine at the current position
 			bot->updateScore(scoreIncrement);
 			totalScore += scoreIncrement;
 		}

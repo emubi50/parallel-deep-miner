@@ -41,9 +41,35 @@ BaseBot::BaseBot(bool isCpu)
 BaseBot::~BaseBot()
 {
 }
-void BaseBot::move(int x, int y)
+void BaseBot::move(char c)
 {
-	position = { x, y };
+	Position movePos;
+	switch (c)
+	{
+	case 'w':
+		position.y > 0 ?
+			movePos = { 0, -1 } :
+			throw std::out_of_range("Move out of bounds! Position remains unchanged.");
+		break;
+	case 's':
+		position.y < 4 ?
+			movePos = { 0, 1 } :
+			throw std::out_of_range("Move out of bounds! Position remains unchanged.");
+		break;
+	case 'a':
+		position.x > 0 ?
+			movePos = { -1, 0 } :
+			throw std::out_of_range("Move out of bounds! Position remains unchanged.");
+		break;
+	case 'd':
+		position.x < 4 ?
+			movePos = { 1, 0 } :
+			throw std::out_of_range("Move out of bounds! Position remains unchanged.");
+		break;
+	default:
+		throw std::invalid_argument("Invalid Move Input! (Must be WASD)");
+	}
+	position += movePos;
 }
 int BaseBot::mine(vector<int>* column)
 {
@@ -56,7 +82,7 @@ std::string BaseBot::getName()
 	return name;
 }
 
-pos BaseBot::getPos()
+Position BaseBot::getPos()
 {
 	return position;
 }

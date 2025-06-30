@@ -1,28 +1,24 @@
 #pragma once
 #include <vector>
 #include <iostream>
-using std::vector;
+#include "Position.h"
 
-struct Position
-{
-	int x;
-	int y;
-} typedef pos;
+using std::vector;
 
 class BaseBot
 {
 public:
 	BaseBot(bool isCpu);
 	~BaseBot();
-	void move(int x, int y); // Move the bot to a new position
+	void move(char c); // Move the bot to a new position
 	virtual int mine(vector<int>* column) = 0; // Mine at the current position
 	std::string getName();
-	pos getPos();
+	Position getPos();
 	int getScore();
 	void updateScore(int score);
 	bool isCpu;
 private:
 	std::string name;
-	pos position;
+	Position position;
 	int score;
 };

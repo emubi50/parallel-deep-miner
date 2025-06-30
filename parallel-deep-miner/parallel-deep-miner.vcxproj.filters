@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="parallel-deep-miner.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="BaseBot.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -31,6 +28,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="RandomBot.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="tests.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Position.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -48,6 +51,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="RandomBot.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "World.h"
-
+/*
 int main()
 {
 	std::cout << "Deep Miner: The Game" << std::endl;
@@ -12,7 +12,7 @@ int main()
 	std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
 	World world;
 }
-
+*/
 // Programm ausführen: STRG+F5 oder Menüeintrag "Debuggen" > "Starten ohne Debuggen starten"
 // Programm debuggen: F5 oder "Debuggen" > Menü "Debuggen starten"
 
